@@ -1,0 +1,143 @@
+$main-color: #2fc2df;
+
+.auth-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    color: $main-color;
+  }
+
+  .site-description {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+
+    .image {
+      max-width: 340px;
+      width: 100%;
+      margin: 60px 0;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      color: #333333;
+      margin: 0 0 18px 0;
+    }
+
+    h6 {
+      font-size: 16px;
+      line-height: 19px;
+      color: #999999;
+    }
+  }
+
+  .line {
+    width: 2px;
+    background: #dddddd;
+    height: 440px;
+    margin: auto 50px;
+  }
+
+  .auth-model {
+    margin: 50px 0 0 0;
+
+    span {
+      color: $main-color;
+    }
+
+    h2 {
+      font-size: 30px;
+      color: #333333;
+      font-weight: bold;
+    }
+
+    h6 {
+      font-size: 14px;
+      line-height: 17px;
+      color: #8d8d8d;
+      margin: 10px 0 0 0;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      color: #333333;
+      margin: 25px 0;
+    }
+
+    h3 {
+      font-size: 16px;
+      line-height: 19px;
+      color: #999999;
+      text-align: center;
+    }
+
+    .forgot-password {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #999999;
+      text-align: end;
+      display: block;
+    }
+
+    .auth-form {
+      .auth-fields {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+        .input-field {
+          width: 100%;
+
+          input {
+            width: 100%;
+            margin: 5px 0 0 0;
+            padding: 15px 20px;
+            border: 1px solid #bdbdbd;
+            border-radius: 2px;
+          }
+        }
+      }
+
+      h5 {
+        margin: 20px 0;
+        font-size: 16px;
+        line-height: 19px;
+        color: #333333;
+      }
+
+      input[type="submit"] {
+        background: $main-color;
+        padding: 10px 30px;
+        color: #fff;
+        border-radius: 2px;
+        border: 0;
+        cursor: pointer;
+      }
+    }
+
+    .or {
+      display: flex;
+      flex-direction: row;
+      margin: 1.2rem 0;
+      align-items: center;
+
+      .bar {
+        flex: auto;
+        border: none;
+        height: 1px;
+        background: #aaa;
+      }
+
+      span {
+        color: #ccc;
+        padding: 0 0.8rem;
+      }
+    }
+  }
+}
