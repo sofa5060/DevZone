@@ -141,3 +141,124 @@ $main-color: #2fc2df;
     }
   }
 }
+
+.signup-2 {
+  max-width: 1200px;
+  padding: 75px 50px;
+  margin: 0 auto;
+
+  h1 {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 38px;
+    color: #333333;
+    margin: 0 0 35px 0;
+  }
+
+  .card {
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
+
+    .signup-2-form {
+      padding: 50px;
+
+      h2 {
+        font-weight: bold;
+        font-size: 24px;
+        color: #333333;
+        margin: 0 0 40px 0;
+      }
+
+      h4 {
+        margin: 15px 0;
+        font-size: 14px;
+        color: #999999;
+      }
+
+      hr {
+        margin: 35px 0;
+      }
+
+      .image-field {
+        display: flex;
+        margin: 40px 0 0 0;
+
+        .image-container {
+          width: 110px;
+          height: 110px;
+
+          #user-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+          }
+        }
+
+        .btns {
+          max-width: 120px;
+          width: 100%;
+          margin: 0 0 0 35px;
+          align-self: center;
+
+          h5 {
+            font-size: 16px;
+          }
+
+          .upload {
+            background: $main-color;
+            text-align: center;
+            padding: 10px 30px;
+            color: #fff;
+            cursor: pointer;
+          }
+
+          .red {
+            text-align: center;
+            margin: 10px 0;
+            text-decoration-line: underline;
+            color: #cc2d2d;
+            cursor: pointer;
+          }
+        }
+
+        .hidden {
+          display: none;
+        }
+      }
+
+      .bio-field {
+        max-width: 700px;
+        width: 100%;
+      }
+    }
+
+    .submit-btns{
+      display: flex;
+      max-width: max-content;
+      margin: 75px 0 0 auto;
+      align-items: center;
+      justify-items: end;
+
+      h6 {
+        font-size: 16px;
+        line-height: 19px;
+        text-decoration-line: underline;
+        color: #333333;
+        cursor: pointer;
+        margin: 0 20px 0 0;
+      }
+  
+      input[type="submit"] {
+        background: $main-color;
+        border: 0;
+        padding: 10px 40px;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+
+    
+  }
+}
