@@ -1,11 +1,23 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { Redirect, Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { uploadImage } from "../../dbServices";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
-export default function SignUp2() {
-  const { user, dispatch } = useContext(AuthContext);
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+export default function SignUp2(props) {
+  const {
+    isSignedIn,
+    dispatch,
+    authAlert,
+    authAlertDispatcher,
+  } = useContext(AuthContext);
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [bio, setBio] = useState("");
@@ -39,16 +51,41 @@ export default function SignUp2() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let imageURL = await uploadImage(image);
-    dispatch({ type: "SIGNUP_STEP2", bio, title, imageURL });
+    authAlertDispatcher({ type: "SIGNING_UP" });
+    let imageURL;
+    if (image) {
+      imageURL = await uploadImage(image);
+    }
+    dispatch({
+      type: "SIGNUP_STEP2",
+      bio,
+      title,
+      imageURL,
+      authAlertDispatcher,
+      redirectToHomeScreen,
+    });
   };
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
+  const redirectToHomeScreen = () => {
+    props.history.push("/");
+  };
+
+  const handleClose = () => {
+    authAlertDispatcher({ type: "CLOSE_ALERT" });
+  };
 
   return (
     <div className="signup-2">
+      {isSignedIn ? "" : <Redirect to="/" />}
+      <Snackbar
+        open={authAlert.isShowen}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={authAlert.type}>
+          {authAlert.msg}
+        </Alert>
+      </Snackbar>
       <h1>Create your profile</h1>
       <div className="card">
         <form className="signup-2-form" onSubmit={handleSubmit}>
@@ -105,7 +142,9 @@ export default function SignUp2() {
             onChange={(e) => setBio(e.target.value)}
           />
           <div className="submit-btns">
-            <h6>Skip For Now</h6>
+            <h6>
+              <Link to="/">Skip For Now</Link>
+            </h6>
             <input type="submit" value="Sign up" />
           </div>
         </form>

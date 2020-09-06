@@ -266,7 +266,7 @@
   justify-items: end;
 }
 
-.signup-2 .card .submit-btns h6 {
+.signup-2 .card .submit-btns h6 a {
   font-size: 16px;
   line-height: 19px;
   -webkit-text-decoration-line: underline;

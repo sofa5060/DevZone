@@ -5,6 +5,7 @@ import SignUp from "./components/AuthPages/SignUp";
 import SignIn from "./components/AuthPages/SignIn";
 import SignUp2 from "./components/AuthPages/SignUp2";
 import AuthContextProvider from "./Contexts/AuthContext";
+import dbServices from "./dbServices"
 
 const App = () => {
   return (

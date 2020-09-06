@@ -233,7 +233,7 @@ $main-color: #2fc2df;
       }
     }
 
-    .submit-btns{
+    .submit-btns {
       display: flex;
       max-width: max-content;
       margin: 75px 0 0 auto;
@@ -241,14 +241,16 @@ $main-color: #2fc2df;
       justify-items: end;
 
       h6 {
-        font-size: 16px;
-        line-height: 19px;
-        text-decoration-line: underline;
-        color: #333333;
-        cursor: pointer;
-        margin: 0 20px 0 0;
+        a {
+          font-size: 16px;
+          line-height: 19px;
+          text-decoration-line: underline;
+          color: #333333;
+          cursor: pointer;
+          margin: 0 20px 0 0;
+        }
       }
-  
+
       input[type="submit"] {
         background: $main-color;
         border: 0;
@@ -258,7 +260,5 @@ $main-color: #2fc2df;
         cursor: pointer;
       }
     }
-
-    
   }
 }

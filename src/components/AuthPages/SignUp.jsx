@@ -1,12 +1,20 @@
 import React, { useContext, useState } from "react";
 import image from "../../images/undraw_connected_8wvi1.png";
 import logo from "../../images/Logo.png";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./style.css";
 import { AuthContext } from "../../Contexts/AuthContext";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const SignUp = (props) => {
-  const { dispatch } = useContext(AuthContext);
+  const { authAlert, isSignedIn, dispatch, authAlertDispatcher } = useContext(
+    AuthContext
+  );
   const [firstName, updateFirstName] = useState("");
   const [lastName, updateLastName] = useState("");
   const [email, updateEmail] = useState("");
@@ -20,12 +28,26 @@ const SignUp = (props) => {
       password,
       firstName,
       lastName,
+      authAlertDispatcher,
     });
-    props.history.push("/signup2");
+  };
+
+  const handleClose = () => {
+    authAlertDispatcher({ type: "CLOSE_ALERT" });
   };
 
   return (
     <div className="auth-page">
+      {isSignedIn && <Redirect to="/signup2" />}
+      <Snackbar
+        open={authAlert.isShowen}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={authAlert.type}>
+          {authAlert.msg}
+        </Alert>
+      </Snackbar>
       <div className="site-description">
         <img src={logo} alt="logo" />
         <img src={image} alt="" className="image" />
