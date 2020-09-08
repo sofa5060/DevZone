@@ -1,0 +1,25 @@
+footer {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 35px;
+  margin: 120px 0 0 0;
+
+  a {
+    margin: 0 0 30px 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #333333;
+    text-decoration: none;
+    max-width: max-content;
+  }
+
+  h3 {
+    margin: 25px 0 0 0;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 25px;
+    color: #333333;
+  }
+}

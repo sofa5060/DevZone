@@ -1,0 +1,18 @@
+.home-page{
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: flex;
+  justify-content: space-between;
+
+  .left-col{
+    max-width: 285px;
+    width: 100%;
+  }
+
+  .right-col{
+    max-width: 260px;
+    width: 100%;
+  }
+}

@@ -12,12 +12,9 @@ function Alert(props) {
 }
 
 export default function SignUp2(props) {
-  const {
-    isSignedIn,
-    dispatch,
-    authAlert,
-    authAlertDispatcher,
-  } = useContext(AuthContext);
+  const { isSignedIn, dispatch, authAlert, authAlertDispatcher } = useContext(
+    AuthContext
+  );
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [bio, setBio] = useState("");
@@ -127,6 +124,7 @@ export default function SignUp2(props) {
             variant="outlined"
             placeholder="Frontend Developer"
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
           <hr />
           <h3>Write a professional Bio</h3>
@@ -140,6 +138,7 @@ export default function SignUp2(props) {
             className="bio-field"
             placeholder="I’am very talanted in coding"
             onChange={(e) => setBio(e.target.value)}
+            required
           />
           <div className="submit-btns">
             <h6>

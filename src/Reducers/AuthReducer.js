@@ -16,13 +16,15 @@ export const authReducer = (state, action) => {
       state.imageURL = action.imageURL || "";
       state.title = action.title;
       state.bio = action.bio;
-      completeSignUp({ ...state }, action.authAlertDispatcher , action.redirectToHomeScreen);
+      completeSignUp(
+        { ...state },
+        action.authAlertDispatcher,
+        action.redirectToHomeScreen
+      );
       return { ...state };
     case "UPDATE_USER_DATA":
+      state = action.userData;
       state.uid = action.uid;
-      if (action.userData) {
-        state = action.userData;
-      }
       return { ...state };
     case "SIGNIN":
       state.email = action.email;
@@ -44,6 +46,11 @@ export const authAlertReducer = (state, action) => {
     case "SIGNUP_SUCCESS":
       state.type = "success";
       state.msg = "Welcome to DevZone family";
+      state.isShowen = true;
+      return { ...state };
+    case "SIGNUP2_SUCCESS":
+      state.type = "success";
+      state.msg = "Your profile is completed";
       state.isShowen = true;
       return { ...state };
     case "SIGNIN_SUCCESS":

@@ -1,0 +1,33 @@
+footer {
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 25px 35px;
+  margin: 120px 0 0 0;
+}
+
+footer a {
+  margin: 0 0 30px 0;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #333333;
+  text-decoration: none;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+}
+
+footer h3 {
+  margin: 25px 0 0 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 25px;
+  color: #333333;
+}
+/*# sourceMappingURL=style.css.map */

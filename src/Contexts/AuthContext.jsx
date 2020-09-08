@@ -17,12 +17,12 @@ const AuthContextProvider = (props) => {
     bio: "",
     following: [],
     followers: [],
+    posts: [],
     facebookURL: "",
     instagramURL: "",
     linkedinURL: "",
     githubURL: "",
     uid: "",
-    finishedSigningUp: false,
   });
 
   const [authAlert, authAlertDispatcher] = useReducer(authAlertReducer, {

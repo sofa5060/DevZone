@@ -1,0 +1,54 @@
+.featured-list {
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
+  border-radius: 2px;
+  width: 100%;
+  margin: 40px 0 0 0;
+  padding: 20px 15px;
+
+  h2 {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .featured-users {
+    margin: 24px 0 0 0;
+
+    .featured-user {
+      display: flex;
+      align-items: center;
+
+      .user-image {
+        width: 48px;
+        height: 48px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .user-details {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 0 10px;
+
+        h3 {
+          font-weight: 600;
+          font-size: 16px;
+        }
+
+        h4 {
+          font-size: 14px;
+          line-height: 17px;
+          color: #999999;
+        }
+      }
+
+      &:nth-child(2) {
+        margin: 24px 0;
+      }
+    }
+  }
+}

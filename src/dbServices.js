@@ -14,20 +14,20 @@ export const signUp = (user, dispatch) => {
     .auth()
     .createUserWithEmailAndPassword(user.email, user.password)
     .then((snapshot) => {
-      snapshot.user.updateProfile({
-        displayName: user.fullName,
-        photoURL: user.imageUrl || "",
-      });
-      createUserDocWithUid(user);
+      const uid = snapshot.user.uid;
+      createUserDocWithUid(user, uid, dispatch);
     })
-    .catch((error) => {
-      var msg = error.message;
+    .catch((err) => {
+      var msg = err.message;
       dispatch({ type: "SIGNUP_ERR", msg });
     });
 };
 
-const createUserDocWithUid = (user) => {
-  db.collection("users").doc(user.uid).set(user);
+const createUserDocWithUid = (user, uid, dispatch) => {
+  db.collection("users")
+    .doc(uid)
+    .set(user)
+    .then(() => dispatch({ type: "SIGNUP_SUCCESS" }));
 };
 
 export const completeSignUp = (user, dispatch, redirectHome) => {
@@ -35,7 +35,7 @@ export const completeSignUp = (user, dispatch, redirectHome) => {
     .doc(user.uid)
     .set(user)
     .then(() => {
-      dispatch({ type: "SIGNUP_SUCCESS" });
+      dispatch({ type: "SIGNUP2_SUCCESS" });
       redirectHome();
     });
 };
@@ -59,4 +59,8 @@ export const signInWithEmailAndPassword = (user, dispatch) => {
     .catch((err) => {
       dispatch({ type: err.code });
     });
+};
+
+export const signOut = () => {
+  firebase.auth().signOut();
 };
