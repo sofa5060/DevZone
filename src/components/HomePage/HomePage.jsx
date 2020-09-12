@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthContext";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -10,15 +10,19 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Footer from "../Footer/Footer";
 import "./style.css";
+import AddPostModal from "../Post/AddPostModal";
+import PostsList from "../Post/PostsList";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const HomePage = (props) => {
+const HomePage = () => {
   const { authAlert, authAlertDispatcher, isSignedIn } = useContext(
     AuthContext
   );
+
+  const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     authAlertDispatcher({ type: "CLOSE_ALERT" });
@@ -42,7 +46,9 @@ const HomePage = (props) => {
           <UserInfo />
           <Featured />
         </div>
-        <div className="posts-list"></div>
+        <div className="posts-list">
+          <PostsList />
+        </div>
         <div className="right-col">
           <Footer />
         </div>
@@ -54,10 +60,14 @@ const HomePage = (props) => {
             bottom: "50px",
             right: "50px",
             background: "#2FC2DF",
+            transform: open ? `rotate(-45deg)` : "rotate(0deg)",
+            transition: "all 0.5s ease",
           }}
+          onClick={() => setOpen(true)}
         >
           <AddIcon />
         </Fab>
+        {open ? <AddPostModal setOpen={setOpen} /> : ""}
       </div>
     </div>
   );

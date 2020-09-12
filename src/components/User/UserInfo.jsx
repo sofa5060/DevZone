@@ -14,7 +14,7 @@ const UserInfo = () => {
           <AccountCircleIcon style={{ color: "#C2C2C2", fontSize: "104" }} />
         )}
       </div>
-      <h2>Chries Evans</h2>
+      <h2>{user.fullName || ""}</h2>
       <div className="user-details">
         <div className="col">
           <h4>Following</h4>

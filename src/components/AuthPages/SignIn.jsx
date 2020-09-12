@@ -61,7 +61,7 @@ const SignIn = () => {
           place to share thier thoughts and enhance the realtions with each
           others
         </h6>
-        <h1>Sign up</h1>
+        <h1>Sign In</h1>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-fields">
             <div className="input-field">

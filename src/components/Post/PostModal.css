@@ -1,0 +1,87 @@
+.post-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 100%;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 25px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.16);
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.16);
+}
+
+.post-modal .image-container {
+  max-width: 100px;
+  margin: 20px 0 40px 0;
+  position: relative;
+}
+
+.post-modal .image-container img {
+  width: 100%;
+}
+
+.post-modal .image-container svg {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  cursor: pointer;
+  fill: #999;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.post-modal .btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post-modal .btns svg {
+  cursor: pointer;
+}
+
+.post-modal .btns input {
+  padding: 10px 25px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #fff;
+  background: #2fc2df;
+  border: 0;
+  border-radius: 3px;
+}
+
+.post-modal .back-drop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #5c5858;
+  opacity: 0.6;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.post-modal .back-drop .loading-spinner {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  color: #fff;
+}
+/*# sourceMappingURL=PostModal.css.map */

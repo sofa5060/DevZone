@@ -1,0 +1,72 @@
+.post-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow:  0 0 30px rgba(0,0,0,.16);
+
+  .image-container{
+    max-width: 100px;
+    margin: 20px 0 40px 0;
+    position: relative;
+
+    img{
+      width: 100%;
+    }
+
+    svg{
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      cursor: pointer;
+      fill: #999;
+      background: #fff;
+      border-radius: 50%;
+    }
+  }
+
+  .btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    svg{
+      cursor: pointer;
+    }
+
+    input{
+      padding: 10px 25px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #fff;
+      background: #2fc2df;
+      border: 0;
+      border-radius: 3px;
+    }
+  }
+  .back-drop{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5c5858;
+    opacity: 0.6;
+    border-radius: 5px;
+    z-index: 2;
+
+    .loading-spinner{
+      position: absolute;
+      top: calc(50% - 20px);
+      left: calc(50% - 20px);
+      color: #fff;
+    }
+  }
+}

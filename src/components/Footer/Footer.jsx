@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./style.css"
+import "./style.css";
 
 const Footer = () => {
   return (
     <footer>
-      <Link>About</Link>
-      <Link>Terms</Link>
-      <Link>Privacy policy</Link>
-      <Link>Help</Link>
-      <Link>Open source</Link>
+      <Link to="/">About</Link>
+      <Link to="/">Terms</Link>
+      <Link to="/">Privacy policy</Link>
+      <Link to="/">Help</Link>
+      <Link to="/">Open source</Link>
       <hr />
       <h3>© 2020 DevZone.</h3>
     </footer>

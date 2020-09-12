@@ -5,18 +5,20 @@ import SignUp from "./components/AuthPages/SignUp";
 import SignIn from "./components/AuthPages/SignIn";
 import SignUp2 from "./components/AuthPages/SignUp2";
 import AuthContextProvider from "./Contexts/AuthContext";
-import dbServices from "./dbServices"
+import PostContextProvider from "./Contexts/PostContext";
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup2" component={SignUp2} />
-        </Switch>
+        <PostContextProvider>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup2" component={SignUp2} />
+          </Switch>
+        </PostContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   );

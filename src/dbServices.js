@@ -64,3 +64,18 @@ export const signInWithEmailAndPassword = (user, dispatch) => {
 export const signOut = () => {
   firebase.auth().signOut();
 };
+
+export const createPost = (post) => {
+  db.collection("posts")
+    .add(post)
+    .then((snapshot) => addPostToUserArr(snapshot.id));
+};
+
+const addPostToUserArr = (id) => {
+  const uid = firebase.auth().currentUser.uid;
+  db.collection("users")
+    .doc(uid)
+    .update({
+      posts: firebase.firestore.FieldValue.arrayUnion(id),
+    });
+};
