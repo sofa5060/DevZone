@@ -1,4 +1,3 @@
-import firebase from "../fbConfig";
 import { createPost } from "../dbServices";
 
 export const postReducer = (state, action) => {
@@ -7,7 +6,10 @@ export const postReducer = (state, action) => {
       state.title = action.title;
       state.details = action.details;
       state.imageURL = action.imageURL || "";
-      state.authorID = firebase.auth().currentUser.uid;
+      state.authorID = action.user.uid;
+      state.authorImageURL = action.user.imageURL;
+      state.authorFullName = action.user.fullName;
+      state.date = new Date();
       createPost({ ...state });
       return { ...state };
     default:

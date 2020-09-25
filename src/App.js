@@ -4,22 +4,24 @@ import HomePage from "./components/HomePage/HomePage";
 import SignUp from "./components/AuthPages/SignUp";
 import SignIn from "./components/AuthPages/SignIn";
 import SignUp2 from "./components/AuthPages/SignUp2";
-import AuthContextProvider from "./Contexts/AuthContext";
+import PostDetails from "./components/Post/PostDetails";
+import UserContextProvider from "./Contexts/UserContext";
 import PostContextProvider from "./Contexts/PostContext";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <AuthContextProvider>
+      <UserContextProvider>
         <PostContextProvider>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/signup" component={SignUp} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup2" component={SignUp2} />
+            <Route path="/posts/:id" component={PostDetails} />
           </Switch>
         </PostContextProvider>
-      </AuthContextProvider>
+      </UserContextProvider>
     </BrowserRouter>
   );
 };

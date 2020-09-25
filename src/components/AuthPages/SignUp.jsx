@@ -3,7 +3,7 @@ import image from "../../images/undraw_connected_8wvi1.png";
 import logo from "../../images/Logo.png";
 import { Link, Redirect } from "react-router-dom";
 import "./style.css";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { UserContext } from "../../Contexts/UserContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -13,7 +13,7 @@ function Alert(props) {
 
 const SignUp = (props) => {
   const { authAlert, isSignedIn, dispatch, authAlertDispatcher } = useContext(
-    AuthContext
+    UserContext
   );
   const [firstName, updateFirstName] = useState("");
   const [lastName, updateLastName] = useState("");

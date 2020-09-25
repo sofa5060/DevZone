@@ -2,9 +2,11 @@ import {
   signUp,
   signInWithEmailAndPassword,
   completeSignUp,
+  addPostToSaved,
+  removePostFromSaved,
 } from "../dbServices";
 
-export const authReducer = (state, action) => {
+export const userReducer = (state, action) => {
   switch (action.type) {
     case "SIGNUP_STEP1":
       state.email = action.email;
@@ -30,6 +32,14 @@ export const authReducer = (state, action) => {
       state.email = action.email;
       state.password = action.password;
       signInWithEmailAndPassword({ ...state }, action.authAlertDispatcher);
+      return { ...state };
+    case "SAVE_POST":
+      state.saved = [...state.saved, action.postID];
+      addPostToSaved(action.postID, state.uid);
+      return { ...state };
+    case "UNSAVE_POST":
+      state.saved = state.saved.filter((id) => id !== action.postID);
+      removePostFromSaved(action.postID, state.uid);
       return { ...state };
     default:
       return state;

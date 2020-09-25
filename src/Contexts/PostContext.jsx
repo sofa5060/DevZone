@@ -27,7 +27,7 @@ const PostContextProvider = (props) => {
           querySnapshot.forEach((doc) => {
             let postDoc = {
               postData: doc.data(),
-              postId: doc.id,
+              postID: doc.id,
             };
             postsArr = [...postsArr, postDoc];
           });

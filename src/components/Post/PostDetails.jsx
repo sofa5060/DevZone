@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
+import { PostContext } from "../../Contexts/PostContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import UserInfo from "../User/UserInfo";
@@ -9,20 +9,20 @@ import Navbar from "../Navbar/Navbar";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Footer from "../Footer/Footer";
-import "./style.css";
 import AddPostModal from "../Post/AddPostModal";
-import PostsList from "../Post/PostsList";
+import PostSummary from "./PostSummary";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const HomePage = () => {
+const PostDetails = (props) => {
   const { authAlert, authAlertDispatcher, isSignedIn } = useContext(
     UserContext
   );
-
+  const { posts } = useContext(PostContext);
   const [open, setOpen] = useState(false);
+  let post = posts.find((post) => post.postID === props.match.params.id);
 
   const handleClose = () => {
     authAlertDispatcher({ type: "CLOSE_ALERT" });
@@ -32,7 +32,6 @@ const HomePage = () => {
     <div>
       <Navbar />
       <div className="home-page">
-        {!isSignedIn && <Redirect to="/signin" />}
         <Snackbar
           open={authAlert.isShowen}
           autoHideDuration={6000}
@@ -46,9 +45,7 @@ const HomePage = () => {
           <UserInfo />
           <Featured />
         </div>
-        <div className="posts-list">
-          <PostsList />
-        </div>
+        <div className="posts-list">{post && <PostSummary post={post} showComments/>}</div>
         <div className="right-col">
           <Footer />
         </div>
@@ -73,4 +70,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default PostDetails;

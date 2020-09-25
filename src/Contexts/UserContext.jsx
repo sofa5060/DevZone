@@ -1,14 +1,13 @@
 import React, { createContext, useReducer, useState, useEffect } from "react";
-import { authReducer, authAlertReducer } from "../Reducers/AuthReducer";
+import { userReducer, authAlertReducer } from "../Reducers/UserReducer";
 import firebase from "firebase";
-import { getUserData } from "../dbServices";
 
-export const AuthContext = createContext();
+export const UserContext = createContext();
 
-const AuthContextProvider = (props) => {
+const UserContextProvider = (props) => {
   const [isSignedIn, changeAuthState] = useState(false);
 
-  const [user, dispatch] = useReducer(authReducer, {
+  const [user, dispatch] = useReducer(userReducer, {
     fullName: "",
     email: "",
     password: "",
@@ -18,6 +17,7 @@ const AuthContextProvider = (props) => {
     following: [],
     followers: [],
     posts: [],
+    saved: [],
     facebookURL: "",
     instagramURL: "",
     linkedinURL: "",
@@ -33,17 +33,25 @@ const AuthContextProvider = (props) => {
 
   useEffect(() => {
     let unsubscribe;
-    const getUser = async () => {
-      unsubscribe = await firebase.auth().onAuthStateChanged(async (user) => {
+    const getUser = () => {
+      unsubscribe = firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           changeAuthState(true);
-          const userData = await getUserData(user.uid);
-          dispatch({ type: "UPDATE_USER_DATA", userData, uid: user.uid });
+          const { uid } = user;
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(uid)
+            .onSnapshot((doc) => {
+              const userData = doc.data();
+              dispatch({ type: "UPDATE_USER_DATA", userData, uid });
+            });
         } else {
           changeAuthState(false);
         }
       });
     };
+
     getUser();
     return () => {
       unsubscribe();
@@ -51,7 +59,7 @@ const AuthContextProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider
+    <UserContext.Provider
       value={{
         user,
         dispatch,
@@ -62,8 +70,8 @@ const AuthContextProvider = (props) => {
       }}
     >
       {props.children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export default AuthContextProvider;
+export default UserContextProvider;

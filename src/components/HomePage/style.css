@@ -16,6 +16,11 @@
   width: 100%;
 }
 
+.home-page .posts-list {
+  margin: 40px 20px;
+  width: 100%;
+}
+
 .home-page .right-col {
   max-width: 260px;
   width: 100%;

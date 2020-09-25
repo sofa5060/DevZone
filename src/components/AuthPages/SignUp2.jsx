@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Redirect, Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { UserContext } from "../../Contexts/UserContext";
 import { uploadImage } from "../../dbServices";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -13,7 +13,7 @@ function Alert(props) {
 
 export default function SignUp2(props) {
   const { isSignedIn, dispatch, authAlert, authAlertDispatcher } = useContext(
-    AuthContext
+    UserContext
   );
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");

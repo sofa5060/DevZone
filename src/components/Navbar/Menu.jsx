@@ -10,7 +10,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { makeStyles } from "@material-ui/core/styles";
 import { signOut } from "../../dbServices";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { UserContext } from "../../Contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +25,7 @@ export default function MenuListComposition() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

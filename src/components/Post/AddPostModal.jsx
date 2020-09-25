@@ -7,6 +7,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import "./PostModal.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { PostContext } from "../../Contexts/PostContext";
+import { UserContext } from "../../Contexts/UserContext";
 import { uploadImage } from "../../dbServices";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -23,6 +24,7 @@ const AddPostModal = ({ setOpen }) => {
   const [details, setDetails] = useState("");
   const [isSubmited, setSubmit] = useState(false);
   const { postDispatcher } = useContext(PostContext);
+  const { user } = useContext(UserContext);
 
   const getFile = () => {
     document.getElementById("photoURL").click();
@@ -55,12 +57,12 @@ const AddPostModal = ({ setOpen }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmit(true);
-    let imageURL
+    let imageURL;
     if (image) {
       imageURL = await uploadImage(image);
     }
-    postDispatcher({ type: "ADD_POST", title, imageURL, details });
-    setOpen(false)
+    postDispatcher({ type: "ADD_POST", title, imageURL, details, user });
+    setOpen(false);
   };
 
   const handleClick = () => {

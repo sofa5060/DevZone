@@ -40,15 +40,6 @@ export const completeSignUp = (user, dispatch, redirectHome) => {
     });
 };
 
-export const getUserData = async (uid) => {
-  let userData;
-  const doc = await db.collection("users").doc(uid).get();
-  if (doc.exists) {
-    userData = doc.data();
-  }
-  return userData;
-};
-
 export const signInWithEmailAndPassword = (user, dispatch) => {
   firebase
     .auth()
@@ -77,5 +68,45 @@ const addPostToUserArr = (id) => {
     .doc(uid)
     .update({
       posts: firebase.firestore.FieldValue.arrayUnion(id),
+    });
+};
+
+export const likePostWithUID = (uid, postID) => {
+  db.collection("posts")
+    .doc(postID)
+    .update({
+      likes: firebase.firestore.FieldValue.arrayUnion(uid),
+    });
+};
+
+export const disLikePostWithUID = (uid, postID) => {
+  db.collection("posts")
+    .doc(postID)
+    .update({
+      likes: firebase.firestore.FieldValue.arrayRemove(uid),
+    });
+};
+
+export const addPostToSaved = (postID, uid) => {
+  db.collection("users")
+    .doc(uid)
+    .update({
+      saved: firebase.firestore.FieldValue.arrayUnion(postID),
+    });
+};
+
+export const removePostFromSaved = (postID, uid) => {
+  db.collection("users")
+    .doc(uid)
+    .update({
+      saved: firebase.firestore.FieldValue.arrayRemove(postID),
+    });
+};
+
+export const addComment = (postID, comment) => {
+  db.collection("posts")
+    .doc(postID)
+    .update({
+      comments: firebase.firestore.FieldValue.arrayUnion(comment),
     });
 };

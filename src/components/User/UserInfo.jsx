@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { UserContext } from "../../Contexts/UserContext";
 import "./style.css";
 
 const UserInfo = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   return (
     <div className="user-info">
       <div className="user-image">
