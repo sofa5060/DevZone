@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { signOut } from "../../dbServices";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { UserContext } from "../../Contexts/UserContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,7 +106,15 @@ export default function MenuListComposition() {
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <Link
+                      to="/myprofile"
+                      style={{
+                        color: "rgba(0, 0, 0, 0.87)",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    </Link>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
                     <MenuItem onClick={handleClose && logOut}>Logout</MenuItem>
                   </MenuList>

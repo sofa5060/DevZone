@@ -10,6 +10,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import { UserContext } from "../../Contexts/UserContext";
 import { likePostWithUID, disLikePostWithUID } from "../../dbServices";
 import Comments from "./Comments";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const PostSummary = ({ post, showComments }) => {
   const { postData, postID } = post;
@@ -33,7 +34,23 @@ const PostSummary = ({ post, showComments }) => {
 
   return (
     <div className="post">
-      <img src={postData.authorImageURL} alt="avatar" className="post-avatar" />
+      <Link to={"/users/" + postData.authorID}>
+        {postData.authorImageURL ? (
+          <img
+            src={postData.authorImageURL}
+            alt="avatar"
+            className="post-avatar"
+          />
+        ) : (
+          <AccountCircleIcon
+            style={{
+              color: "#C2C2C2",
+              fontSize: "50",
+              background: "#FFFFFF",
+            }}
+          />
+        )}
+      </Link>
       <div className="post-details">
         <h2>{postData.title}</h2>
         <h3>
@@ -42,7 +59,7 @@ const PostSummary = ({ post, showComments }) => {
         </h3>
         <div className="post-content">
           <h4>{postData.details}</h4>
-          <img src={postData.imageURL} alt="post" />
+          {postData.imageURL && <img src={postData.imageURL} alt="post" />}
         </div>
         <div className="post-actions">
           <div className="left">
@@ -78,7 +95,7 @@ const PostSummary = ({ post, showComments }) => {
             )}
           </div>
         </div>
-        {showComments && <Comments postID={postID} postData={postData}/>}
+        {showComments && <Comments postID={postID} postData={postData} />}
       </div>
     </div>
   );

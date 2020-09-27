@@ -110,3 +110,41 @@ export const addComment = (postID, comment) => {
       comments: firebase.firestore.FieldValue.arrayUnion(comment),
     });
 };
+
+export const getUserData = async (uid) => {
+  const user = await db
+    .collection("users")
+    .doc(uid)
+    .get()
+    .then((doc) => doc.data())
+    .catch((err) => err);
+  return user;
+};
+
+export const followUser = (uid, id) => {
+  db.collection("users")
+    .doc(uid)
+    .update({
+      following: firebase.firestore.FieldValue.arrayUnion(id),
+    });
+
+  db.collection("users")
+    .doc(id)
+    .update({
+      followers: firebase.firestore.FieldValue.arrayUnion(uid),
+    });
+};
+
+export const unFollowUser = (uid, id) => {
+  db.collection("users")
+    .doc(uid)
+    .update({
+      following: firebase.firestore.FieldValue.arrayRemove(id),
+    });
+
+  db.collection("users")
+    .doc(id)
+    .update({
+      followers: firebase.firestore.FieldValue.arrayRemove(uid),
+    });
+};

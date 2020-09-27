@@ -7,6 +7,8 @@ import SignUp2 from "./components/AuthPages/SignUp2";
 import PostDetails from "./components/Post/PostDetails";
 import UserContextProvider from "./Contexts/UserContext";
 import PostContextProvider from "./Contexts/PostContext";
+import Profile from "./components/Profile/Profile";
+import MyProfile from "./components/Profile/MyProfile";
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
             <Route path="/signin" component={SignIn} />
             <Route path="/signup2" component={SignUp2} />
             <Route path="/posts/:id" component={PostDetails} />
+            <Route path="/users/:uid" component={Profile} />
+            <Route path="/myprofile" component={MyProfile} />
           </Switch>
         </PostContextProvider>
       </UserContextProvider>

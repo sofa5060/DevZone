@@ -11,6 +11,7 @@ import moment from "moment";
 const Comments = ({ postData, postID }) => {
   const { user } = useContext(UserContext);
   const { comments } = postData;
+  const reversedComments = [...comments].reverse();
   const [commentContent, updateComment] = useState("");
   const [commentImage, updateImage] = useState("");
 
@@ -55,7 +56,7 @@ const Comments = ({ postData, postID }) => {
         </div>
         <input type="submit" value="COMMENT" />
       </form>
-      {comments.map((comment) => (
+      {reversedComments.map((comment) => (
         <div className="comment-field" key={comment.id}>
           <div className="comment-data">
             <div className="user-image">

@@ -78,11 +78,12 @@ $main-color: #2fc2df;
     }
 
     .forgot-password {
-      margin: 10px 0;
+      margin: 10px 0 10px auto;
       font-size: 16px;
       color: #999999;
       text-align: end;
       display: block;
+      max-width: max-content;
     }
 
     .auth-form {
