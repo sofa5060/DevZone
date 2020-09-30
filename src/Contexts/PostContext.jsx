@@ -21,7 +21,7 @@ const PostContextProvider = (props) => {
       firebase
         .firestore()
         .collection("posts")
-        .limit(20)
+        .orderBy("date", "desc")
         .onSnapshot((querySnapshot) => {
           postsArr = [];
           querySnapshot.forEach((doc) => {
@@ -31,10 +31,10 @@ const PostContextProvider = (props) => {
             };
             postsArr = [...postsArr, postDoc];
           });
-          setPosts(postsArr)
+          setPosts(postsArr);
         });
     };
-    getData()
+    getData();
   }, []);
 
   return (

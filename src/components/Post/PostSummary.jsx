@@ -34,7 +34,13 @@ const PostSummary = ({ post, showComments }) => {
 
   return (
     <div className="post">
-      <Link to={"/users/" + postData.authorID}>
+      <Link
+        to={
+          postData.authorID === user.uid
+            ? `/myprofile`
+            : `/users/${postData.authorID}`
+        }
+      >
         {postData.authorImageURL ? (
           <img
             src={postData.authorImageURL}
@@ -78,7 +84,7 @@ const PostSummary = ({ post, showComments }) => {
               <h5>{postData.likes.length}</h5>
             </div>
             <div className="container">
-              <Link to={`posts/${postID}`}>
+              <Link to={`/posts/${postID}`}>
                 <CommentIcon style={{ color: "#333333" }} />
               </Link>
               <h5>{postData.comments.length}</h5>

@@ -148,3 +148,15 @@ export const unFollowUser = (uid, id) => {
       followers: firebase.firestore.FieldValue.arrayRemove(uid),
     });
 };
+
+export const getFeaturedUsers = async () => {
+  let featuredUsers = [];
+  const querySnapshot = await db.collection("users").limit(3).get();
+  querySnapshot.forEach(function (doc) {
+    const userData = doc.data();
+    const userID = doc.id;
+    const user = { userData, userID };
+    featuredUsers = [...featuredUsers, user];
+  });
+  return featuredUsers;
+};
