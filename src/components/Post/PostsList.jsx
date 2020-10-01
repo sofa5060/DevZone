@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
-import { PostContext } from "../../Contexts/PostContext";
+import React from "react";
 import PostSummary from "./PostSummary";
 
-const PostsList = () => {
-  const { posts } = useContext(PostContext);
-
+const PostsList = ({ posts }) => {
   return (
     <div>
       {posts.map((post) => (

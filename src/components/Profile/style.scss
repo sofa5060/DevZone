@@ -121,3 +121,23 @@
     }
   }
 }
+
+#segment{
+  max-width: 580px;
+  width: 100%;
+  margin: 0 auto 40px auto;
+  display: flex;
+  background: #fff;
+
+  h2{
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+    cursor: pointer;
+  }
+
+  .active{
+    border-bottom: 2px solid #2FC2DF;
+  }
+}

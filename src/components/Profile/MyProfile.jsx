@@ -1,15 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
-import { getUserData } from "../../dbServices";
+import { PostContext } from "../../Contexts/PostContext";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Navbar from "../Navbar/Navbar";
+import PostsList from "../Post/PostsList";
 import "./style.css";
 
 const MyProfile = (props) => {
-  const id = props.match.params.uid;
   const { user } = useContext(UserContext);
+  const { posts } = useContext(PostContext);
+  const [postsType, setType] = useState("userPosts");
+  const [savedPosts, setSaved] = useState([]);
+  const [userPosts, setuserPosts] = useState([]);
+
+  useEffect(() => {
+    const savedPostsIDs = user.saved;
+    const userPostsIDs = user.posts;
+    let savedPostsArr = [];
+    let userPostsArr = [];
+    posts.map((post) => {
+      if (savedPostsIDs.includes(post.postID)) {
+        console.log("yes");
+        savedPostsArr = [...savedPostsArr, post];
+      }
+      if (userPostsIDs.includes(post.postID)) {
+        userPostsArr = [...userPostsArr, post];
+      }
+    });
+    setSaved(savedPostsArr);
+    setuserPosts(userPostsArr);
+  }, [user, posts]);
+
+  const handleClick = (e) => {
+    if (e.target.dataset.type === postsType) {
+      return;
+    }
+    const segments = [...document.getElementById("segment").children];
+    segments.forEach((segment) => {
+      segment.classList.remove("active");
+    });
+    setType(e.target.dataset.type);
+    e.target.classList.add("active");
+  };
 
   return (
     <div>
@@ -65,6 +99,19 @@ const MyProfile = (props) => {
           style={{ maxWidth: "1200px", height: "380px", margin: "0 auto" }}
         />
       )}
+      <div id="segment">
+        <h2
+          onClick={(e) => handleClick(e)}
+          className="active"
+          data-type="userPosts"
+        >
+          My Posts
+        </h2>
+        <h2 onClick={(e) => handleClick(e)} data-type="savedPosts">
+          Saved Posts
+        </h2>
+      </div>
+      <PostsList posts={postsType === "userPosts" ? userPosts : savedPosts} />
     </div>
   );
 };

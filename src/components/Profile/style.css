@@ -143,4 +143,26 @@
   color: #fff;
   background: #2fc2df;
 }
+
+#segment {
+  max-width: 580px;
+  width: 100%;
+  margin: 0 auto 40px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #fff;
+}
+
+#segment h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+#segment .active {
+  border-bottom: 2px solid #2FC2DF;
+}
 /*# sourceMappingURL=style.css.map */

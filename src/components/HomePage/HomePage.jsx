@@ -12,6 +12,7 @@ import Footer from "../Footer/Footer";
 import "./style.css";
 import AddPostModal from "../Post/AddPostModal";
 import PostsList from "../Post/PostsList";
+import { PostContext } from "../../Contexts/PostContext";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -21,6 +22,7 @@ const HomePage = () => {
   const { authAlert, authAlertDispatcher, isSignedIn } = useContext(
     UserContext
   );
+  const { posts } = useContext(PostContext);
 
   const [open, setOpen] = useState(false);
 
@@ -47,7 +49,7 @@ const HomePage = () => {
           <Featured />
         </div>
         <div className="posts-list">
-          <PostsList />
+          <PostsList posts={posts} />
         </div>
         <div className="right-col">
           <Footer />

@@ -1,20 +1,38 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
+import { PostContext } from "../../Contexts/PostContext";
 import { getUserData, followUser, unFollowUser } from "../../dbServices";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Navbar from "../Navbar/Navbar";
+import PostsList from "../Post/PostsList";
 import "./style.css";
 
 const Profile = (props) => {
   const id = props.match.params.uid;
   const [currUser, setCurrUser] = useState();
+  const [userPosts, setUserPosts] = useState([]);
   const { user } = useContext(UserContext);
+  const { posts } = useContext(PostContext);
 
   useEffect(() => {
     getUser();
   }, []);
+
+  useEffect(() => {
+    if (!currUser) {
+      return;
+    }
+    let postsArr = [];
+    const userPostsIDs = currUser.posts;
+    posts.map((post) => {
+      if (userPostsIDs.includes(post.postID)) {
+        postsArr = [...postsArr, post];
+      }
+    });
+    setUserPosts(postsArr);
+  }, [currUser, posts]);
 
   const getUser = async () => {
     let userData = await getUserData(id);
@@ -27,12 +45,12 @@ const Profile = (props) => {
 
   const follow = () => {
     followUser(user.uid, id);
-    currUser.followers.push(user.uid)
+    currUser.followers.push(user.uid);
   };
 
   const unFollow = () => {
     unFollowUser(user.uid, id);
-    currUser.followers.pop()
+    currUser.followers.pop();
   };
 
   return (
@@ -103,6 +121,7 @@ const Profile = (props) => {
           style={{ maxWidth: "1200px", height: "380px", margin: "0 auto" }}
         />
       )}
+      <PostsList posts={userPosts} />
     </div>
   );
 };
