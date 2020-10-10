@@ -6,39 +6,76 @@ import "./style.css";
 import { UserContext } from "../../Contexts/UserContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { signUp, createUserDocWithUid } from "../../dbServices";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const SignUp = (props) => {
-  const { authAlert, isSignedIn, dispatch, authAlertDispatcher } = useContext(
-    UserContext
-  );
+  const {
+    authAlert,
+    isSignedIn,
+    changeAuthState,
+    authAlertDispatcher,
+  } = useContext(UserContext);
   const [firstName, updateFirstName] = useState("");
   const [lastName, updateLastName] = useState("");
   const [email, updateEmail] = useState("");
   const [password, updatePassword] = useState("");
 
+  const redirectToSecondStep = () => {
+    changeAuthState(true);
+    props.history.push("/signup2");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: "SIGNUP_STEP1",
+    const fullName = firstName + " " + lastName;
+    signUp(
       email,
       password,
-      firstName,
-      lastName,
+      fullName,
       authAlertDispatcher,
-    });
+      redirectToSecondStep
+    );
   };
 
   const handleClose = () => {
     authAlertDispatcher({ type: "CLOSE_ALERT" });
   };
 
+  var uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function (authResult) {
+        if (!authResult.additionalUserInfo.isNewUser) {
+          props.history.push("/");
+          return;
+        }
+        const { email, displayName, uid, photoURL } = authResult.user;
+        createUserDocWithUid(
+          email,
+          displayName,
+          uid,
+          authAlertDispatcher,
+          photoURL
+        );
+        redirectToSecondStep();
+        return true;
+      },
+    },
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    ],
+  };
+
   return (
     <div className="auth-page">
-      {isSignedIn && <Redirect to="/signup2" />}
+      {isSignedIn && <Redirect to="/" />}
       <Snackbar
         open={authAlert.isShowen}
         autoHideDuration={6000}
@@ -123,6 +160,12 @@ const SignUp = (props) => {
           <hr className="bar" />
           <span>OR</span>
           <hr className="bar" />
+        </div>
+        <div className="oAuth-btns">
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
         </div>
         <h3>
           Do you already have a profile? <Link to="signin">Sign in</Link>

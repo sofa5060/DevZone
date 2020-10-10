@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useState, useEffect } from "react";
-import { userReducer, authAlertReducer } from "../Reducers/UserReducer";
+import { authAlertReducer } from "../Reducers/UserReducer";
 import firebase from "firebase";
 
 export const UserContext = createContext();
@@ -7,7 +7,7 @@ export const UserContext = createContext();
 const UserContextProvider = (props) => {
   const [isSignedIn, changeAuthState] = useState(false);
 
-  const [user, dispatch] = useReducer(userReducer, {
+  const [user, setUser] = useState({
     fullName: "",
     email: "",
     password: "",
@@ -44,7 +44,9 @@ const UserContextProvider = (props) => {
             .doc(uid)
             .onSnapshot((doc) => {
               const userData = doc.data();
-              dispatch({ type: "UPDATE_USER_DATA", userData, uid });
+              if (userData) {
+                setUser(userData);
+              }
             });
         } else {
           changeAuthState(false);
@@ -62,7 +64,6 @@ const UserContextProvider = (props) => {
     <UserContext.Provider
       value={{
         user,
-        dispatch,
         isSignedIn,
         changeAuthState,
         authAlert,

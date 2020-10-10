@@ -8,7 +8,7 @@ import "./PostModal.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { PostContext } from "../../Contexts/PostContext";
 import { UserContext } from "../../Contexts/UserContext";
-import { uploadImage } from "../../dbServices";
+import { createPost, uploadImage } from "../../dbServices";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +61,17 @@ const AddPostModal = ({ setOpen }) => {
     if (image) {
       imageURL = await uploadImage(image);
     }
-    postDispatcher({ type: "ADD_POST", title, imageURL, details, user });
+    createPost({
+      title,
+      details,
+      imageURL: imageURL || "",
+      authorID: user.uid,
+      authorImageURL: user.imageURL,
+      authorFullName: user.fullName,
+      date: new Date(),
+      likes: [],
+      comments: [],
+    });
     setOpen(false);
   };
 

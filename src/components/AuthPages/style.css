@@ -156,6 +156,28 @@
   padding: 0 0.8rem;
 }
 
+.auth-page .auth-model .oAuth-btns {
+  width: 100%;
+}
+
+.auth-page .auth-model .oAuth-btns .firebaseui-container {
+  width: 100%;
+  max-width: 100% !important;
+}
+
+.auth-page .auth-model .oAuth-btns .firebaseui-container .firebaseui-card-content {
+  padding: 0;
+}
+
+.auth-page .auth-model .oAuth-btns .firebaseui-container .firebaseui-card-content .firebaseui-idp-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .signup-2 {
   max-width: 1200px;
   padding: 75px 50px;

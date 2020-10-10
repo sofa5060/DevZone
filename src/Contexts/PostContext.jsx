@@ -1,19 +1,10 @@
-import React, { createContext, useReducer, useState, useEffect } from "react";
-import { postReducer } from "../Reducers/PostReducer";
+import React, { createContext, useState, useEffect } from "react";
 import firebase from "../fbConfig";
 
 export const PostContext = createContext();
 
 const PostContextProvider = (props) => {
   const [posts, setPosts] = useState([]);
-  const [post, postDispatcher] = useReducer(postReducer, {
-    title: "",
-    details: "",
-    imageURL: "",
-    authorID: "",
-    likes: [],
-    comments: [],
-  });
 
   useEffect(() => {
     let postsArr = [];
@@ -38,7 +29,7 @@ const PostContextProvider = (props) => {
   }, []);
 
   return (
-    <PostContext.Provider value={{ posts, postDispatcher }}>
+    <PostContext.Provider value={{ posts }}>
       {props.children}
     </PostContext.Provider>
   );

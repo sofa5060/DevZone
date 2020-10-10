@@ -34,7 +34,7 @@ const HomePage = () => {
     <div>
       <Navbar />
       <div className="home-page">
-        {!isSignedIn && <Redirect to="/signin" />}
+        {!isSignedIn && <Redirect to="/signup" />}
         <Snackbar
           open={authAlert.isShowen}
           autoHideDuration={6000}

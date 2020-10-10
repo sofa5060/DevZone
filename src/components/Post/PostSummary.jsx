@@ -8,13 +8,13 @@ import CommentIcon from "@material-ui/icons/Comment";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import { UserContext } from "../../Contexts/UserContext";
-import { likePostWithUID, disLikePostWithUID } from "../../dbServices";
+import { likePostWithUID, disLikePostWithUID, removePostFromSaved, addPostToSaved } from "../../dbServices";
 import Comments from "./Comments";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const PostSummary = ({ post, showComments }) => {
   const { postData, postID } = post;
-  const { dispatch, user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const likePost = () => {
     likePostWithUID(user.uid, postID);
@@ -25,11 +25,11 @@ const PostSummary = ({ post, showComments }) => {
   };
 
   const savePost = () => {
-    dispatch({ type: "SAVE_POST", postID });
+    addPostToSaved(postID, user.uid);
   };
 
   const unSavePost = () => {
-    dispatch({ type: "UNSAVE_POST", postID });
+    removePostFromSaved(postID, user.uid);
   };
 
   return (

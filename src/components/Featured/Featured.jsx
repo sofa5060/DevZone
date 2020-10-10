@@ -20,7 +20,7 @@ const Featured = () => {
 
   const showButtons = (uid, id) => {
     if (uid === id) {
-      return;
+      return "";
     }
 
     if (user.following.includes(id)) {

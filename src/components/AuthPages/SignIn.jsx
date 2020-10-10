@@ -6,25 +6,64 @@ import "./style.css";
 import { UserContext } from "../../Contexts/UserContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { signInWithEmailAndPassword } from "../../dbServices";
+import { createUserDocWithUid } from "../../dbServices";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const SignIn = () => {
-  const { authAlert, isSignedIn, authAlertDispatcher, dispatch } = useContext(
-    UserContext
-  );
-  
+const SignIn = (props) => {
+  const {
+    authAlert,
+    isSignedIn,
+    authAlertDispatcher,
+    changeAuthState,
+  } = useContext(UserContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "SIGNIN", email, password, authAlertDispatcher });
+    signInWithEmailAndPassword(email, password, authAlertDispatcher);
   };
 
   const handleClose = () => {
     authAlertDispatcher({ type: "CLOSE_ALERT" });
+  };
+
+  const redirectToSecondStep = () => {
+    changeAuthState(true);
+    props.history.push("/signup2");
+  };
+
+  var uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function (authResult) {
+        if (!authResult.additionalUserInfo.isNewUser) {
+          props.history.push("/");
+          return;
+        }
+        const { email, displayName, uid, photoURL } = authResult.user;
+        createUserDocWithUid(
+          email,
+          displayName,
+          uid,
+          authAlertDispatcher,
+          photoURL
+        );
+        redirectToSecondStep();
+        return true;
+      },
+    },
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    ],
   };
 
   return (
@@ -92,6 +131,12 @@ const SignIn = () => {
           <hr className="bar" />
           <span>OR</span>
           <hr className="bar" />
+        </div>
+        <div className="oAuth-btns">
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
         </div>
         <h3>
           Not Member Yet? <Link to="signup">Sign up</Link>

@@ -140,6 +140,23 @@ $main-color: #2fc2df;
         padding: 0 0.8rem;
       }
     }
+
+    .oAuth-btns {
+      width: 100%;
+
+      .firebaseui-container {
+        width: 100%;
+        max-width: 100% !important;
+
+        .firebaseui-card-content {
+          padding: 0;
+          .firebaseui-idp-list {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
   }
 }
 

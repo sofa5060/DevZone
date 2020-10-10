@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { UserContext } from "../../Contexts/UserContext";
-import { uploadImage } from "../../dbServices";
+import { signUpStep2, uploadImage } from "../../dbServices";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -12,12 +12,13 @@ function Alert(props) {
 }
 
 export default function SignUp2(props) {
-  const { isSignedIn, dispatch, authAlert, authAlertDispatcher } = useContext(
+  const { isSignedIn, user, authAlert, authAlertDispatcher } = useContext(
     UserContext
   );
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [bio, setBio] = useState("");
+  const [isSubmitted, setSubmitted] = useState(false);
 
   const getFile = () => {
     document.getElementById("photoURL").click();
@@ -48,19 +49,20 @@ export default function SignUp2(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(true);
     authAlertDispatcher({ type: "SIGNING_UP" });
-    let imageURL;
+    let imageURL = user.imageURL || "";
     if (image) {
       imageURL = await uploadImage(image);
     }
-    dispatch({
-      type: "SIGNUP_STEP2",
-      bio,
+    signUpStep2(
+      user.uid,
       title,
-      imageURL,
+      bio,
       authAlertDispatcher,
       redirectToHomeScreen,
-    });
+      imageURL
+    );
   };
 
   const redirectToHomeScreen = () => {
@@ -73,7 +75,7 @@ export default function SignUp2(props) {
 
   return (
     <div className="signup-2">
-      {isSignedIn ? "" : <Redirect to="/" />}
+      {!isSignedIn && <Redirect to="/signup" />}
       <Snackbar
         open={authAlert.isShowen}
         autoHideDuration={6000}
@@ -90,8 +92,8 @@ export default function SignUp2(props) {
           <h3>Upload your profile picture</h3>
           <div className="image-field">
             <div className="image-container">
-              {image ? (
-                <img src={image} alt="" id="user-image" />
+              {image || user.imageURL ? (
+                <img src={image || user.imageURL} alt="" id="user-image" />
               ) : (
                 <AccountCircleIcon
                   style={{ color: "#C2C2C2", fontSize: "104" }}
@@ -144,7 +146,7 @@ export default function SignUp2(props) {
             <h6>
               <Link to="/">Skip For Now</Link>
             </h6>
-            <input type="submit" value="Sign up" />
+            <input type="submit" value="Sign up" disabled={isSubmitted} />
           </div>
         </form>
       </div>

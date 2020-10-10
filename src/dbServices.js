@@ -9,13 +9,20 @@ export const uploadImage = async (image) => {
   return downloadURL;
 };
 
-export const signUp = (user, dispatch) => {
+export const signUp = (
+  email,
+  password,
+  fullName,
+  dispatch,
+  redirectToSecondStep
+) => {
   firebase
     .auth()
-    .createUserWithEmailAndPassword(user.email, user.password)
+    .createUserWithEmailAndPassword(email, password)
     .then((snapshot) => {
       const uid = snapshot.user.uid;
-      createUserDocWithUid(user, uid, dispatch);
+      createUserDocWithUid(email, fullName, uid, dispatch);
+      redirectToSecondStep();
     })
     .catch((err) => {
       var msg = err.message;
@@ -23,27 +30,59 @@ export const signUp = (user, dispatch) => {
     });
 };
 
-const createUserDocWithUid = (user, uid, dispatch) => {
+export const createUserDocWithUid = (
+  email,
+  fullName,
+  uid,
+  dispatch,
+  imageURL
+) => {
   db.collection("users")
     .doc(uid)
-    .set(user)
+    .set({
+      fullName,
+      email,
+      imageURL: imageURL || "",
+      title: "",
+      bio: "",
+      following: [],
+      followers: [],
+      posts: [],
+      saved: [],
+      facebookURL: "",
+      instagramURL: "",
+      linkedinURL: "",
+      githubURL: "",
+      uid,
+    })
     .then(() => dispatch({ type: "SIGNUP_SUCCESS" }));
 };
 
-export const completeSignUp = (user, dispatch, redirectHome) => {
+export const signUpStep2 = (
+  uid,
+  title,
+  bio,
+  dispatch,
+  redirectHome,
+  imageURL
+) => {
   db.collection("users")
-    .doc(user.uid)
-    .set(user)
+    .doc(uid)
+    .update({
+      title,
+      bio,
+      imageURL: imageURL || "",
+    })
     .then(() => {
       dispatch({ type: "SIGNUP2_SUCCESS" });
       redirectHome();
     });
 };
 
-export const signInWithEmailAndPassword = (user, dispatch) => {
+export const signInWithEmailAndPassword = (email, password, dispatch) => {
   firebase
     .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
+    .signInWithEmailAndPassword(email, password)
     .then(() => {
       dispatch({ type: "SIGNIN_SUCCESS" });
     })
@@ -122,6 +161,9 @@ export const getUserData = async (uid) => {
 };
 
 export const followUser = (uid, id) => {
+  if (uid === id) {
+    return;
+  }
   db.collection("users")
     .doc(uid)
     .update({
@@ -136,6 +178,9 @@ export const followUser = (uid, id) => {
 };
 
 export const unFollowUser = (uid, id) => {
+  if (uid === id) {
+    return;
+  }
   db.collection("users")
     .doc(uid)
     .update({

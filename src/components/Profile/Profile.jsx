@@ -7,14 +7,24 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Navbar from "../Navbar/Navbar";
 import PostsList from "../Post/PostsList";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import "./style.css";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Profile = (props) => {
   const id = props.match.params.uid;
   const [currUser, setCurrUser] = useState();
   const [userPosts, setUserPosts] = useState([]);
-  const { user } = useContext(UserContext);
+  const { user, authAlertDispatcher, authAlert } = useContext(UserContext);
   const { posts } = useContext(PostContext);
+
+  const handleClose = () => {
+    authAlertDispatcher({ type: "CLOSE_ALERT" });
+  };
 
   useEffect(() => {
     getUser();
@@ -39,7 +49,11 @@ const Profile = (props) => {
     if (userData) {
       setCurrUser(userData);
     } else {
-      console.log("user not found");
+      authAlertDispatcher({ type: "USER_NOT_FOUND" });
+      setTimeout(() => {
+        authAlertDispatcher({ type: "CLOSE_ALERT" });
+        props.history.push("/");
+      }, 3000);
     }
   };
 
@@ -56,6 +70,15 @@ const Profile = (props) => {
   return (
     <div>
       <Navbar />
+      <Snackbar
+        open={authAlert.isShowen}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={authAlert.type}>
+          {authAlert.msg}
+        </Alert>
+      </Snackbar>
       {currUser ? (
         <div className="profile-header">
           <div className="profile-image">

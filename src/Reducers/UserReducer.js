@@ -1,51 +1,3 @@
-import {
-  signUp,
-  signInWithEmailAndPassword,
-  completeSignUp,
-  addPostToSaved,
-  removePostFromSaved,
-} from "../dbServices";
-
-export const userReducer = (state, action) => {
-  switch (action.type) {
-    case "SIGNUP_STEP1":
-      state.email = action.email;
-      state.fullName = action.firstName + " " + action.lastName;
-      state.password = action.password;
-      signUp({ ...state }, action.authAlertDispatcher);
-      return { ...state };
-    case "SIGNUP_STEP2":
-      state.imageURL = action.imageURL || "";
-      state.title = action.title;
-      state.bio = action.bio;
-      completeSignUp(
-        { ...state },
-        action.authAlertDispatcher,
-        action.redirectToHomeScreen
-      );
-      return { ...state };
-    case "UPDATE_USER_DATA":
-      state = action.userData;
-      state.uid = action.uid;
-      return { ...state };
-    case "SIGNIN":
-      state.email = action.email;
-      state.password = action.password;
-      signInWithEmailAndPassword({ ...state }, action.authAlertDispatcher);
-      return { ...state };
-    case "SAVE_POST":
-      state.saved = [...state.saved, action.postID];
-      addPostToSaved(action.postID, state.uid);
-      return { ...state };
-    case "UNSAVE_POST":
-      state.saved = state.saved.filter((id) => id !== action.postID);
-      removePostFromSaved(action.postID, state.uid);
-      return { ...state };
-    default:
-      return state;
-  }
-};
-
 export const authAlertReducer = (state, action) => {
   switch (action.type) {
     case "SIGNUP_ERR":
@@ -84,6 +36,11 @@ export const authAlertReducer = (state, action) => {
     case "SIGNING_UP":
       state.type = "info";
       state.msg = "Please wait...";
+      state.isShowen = true;
+      return { ...state };
+    case "USER_NOT_FOUND":
+      state.type = "error";
+      state.msg = "User Not Found ):";
       state.isShowen = true;
       return { ...state };
     default:
