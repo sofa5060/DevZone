@@ -17,7 +17,7 @@ function Alert(props) {
 }
 
 const PostDetails = (props) => {
-  const { authAlert, authAlertDispatcher, isSignedIn } = useContext(
+  const { authAlert, authAlertDispatcher } = useContext(
     UserContext
   );
   const { posts } = useContext(PostContext);
@@ -42,7 +42,7 @@ const PostDetails = (props) => {
           </Alert>
         </Snackbar>
         <div className="left-col">
-          <UserInfo />
+          <UserInfo hideOnSmallScreen/>
           <Featured />
         </div>
         <div className="posts-list">{post && <PostSummary post={post} showComments/>}</div>

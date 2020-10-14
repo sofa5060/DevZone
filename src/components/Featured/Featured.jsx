@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "./Style.css";
 
 const Featured = () => {
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState([]);
   const { user } = useContext(UserContext);
   useEffect(() => {
     const getUsers = async () => {
@@ -50,7 +50,7 @@ const Featured = () => {
     }
   };
 
-  if (users) {
+  if (users.length) {
     return (
       <div className="featured-list">
         <h2>Featured: </h2>

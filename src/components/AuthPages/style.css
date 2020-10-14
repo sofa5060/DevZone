@@ -39,11 +39,23 @@
   color: #999999;
 }
 
+@media (max-width: 695px) {
+  .auth-page .site-description {
+    display: none;
+  }
+}
+
 .auth-page .line {
   width: 2px;
   background: #dddddd;
   height: 440px;
   margin: auto 50px;
+}
+
+@media (max-width: 695px) {
+  .auth-page .line {
+    display: none;
+  }
 }
 
 .auth-page .auth-model {
@@ -178,6 +190,16 @@
           justify-content: space-between;
 }
 
+.auth-page .auth-model .oAuth-btns .firebaseui-container .firebaseui-card-content .firebaseui-idp-list li:nth-child(1) {
+  margin: 0 10px 0 0;
+}
+
+@media (max-width: 500px) {
+  .auth-page {
+    padding: 20px;
+  }
+}
+
 .signup-2 {
   max-width: 1200px;
   padding: 75px 50px;
@@ -277,6 +299,12 @@
   width: 100%;
 }
 
+@media (max-width: 500px) {
+  .signup-2 .card .signup-2-form {
+    padding: 50px 25px;
+  }
+}
+
 .signup-2 .card .submit-btns {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -308,5 +336,11 @@
   color: #fff;
   font-size: 18px;
   cursor: pointer;
+}
+
+@media (max-width: 695px) {
+  .signup-2 {
+    padding: 25px 20px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

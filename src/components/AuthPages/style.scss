@@ -1,5 +1,17 @@
 $main-color: #2fc2df;
 
+@mixin tablet {
+  @media (max-width: 695px) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
 .auth-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -34,6 +46,10 @@ $main-color: #2fc2df;
       line-height: 19px;
       color: #999999;
     }
+
+    @include tablet {
+      display: none;
+    }
   }
 
   .line {
@@ -41,6 +57,10 @@ $main-color: #2fc2df;
     background: #dddddd;
     height: 440px;
     margin: auto 50px;
+
+    @include tablet {
+      display: none;
+    }
   }
 
   .auth-model {
@@ -153,10 +173,18 @@ $main-color: #2fc2df;
           .firebaseui-idp-list {
             display: flex;
             justify-content: space-between;
+
+            li:nth-child(1) {
+              margin: 0 10px 0 0;
+            }
           }
         }
       }
     }
+  }
+
+  @include phone {
+    padding: 20px;
   }
 }
 
@@ -249,6 +277,10 @@ $main-color: #2fc2df;
         max-width: 700px;
         width: 100%;
       }
+
+      @include phone {
+        padding: 50px 25px;
+      }
     }
 
     .submit-btns {
@@ -278,5 +310,9 @@ $main-color: #2fc2df;
         cursor: pointer;
       }
     }
+  }
+
+  @include tablet {
+    padding: 25px 20px;
   }
 }

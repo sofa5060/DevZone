@@ -35,12 +35,12 @@ export default function Navbar() {
   return (
     <nav>
       <div className="container">
-        <Link to="/">
-          <img src={logo} alt="" className="logo" />
+        <Link to="/" className="logo">
+          <img src={logo} alt=""/>
         </Link>
         <Paper
           component="form"
-          className={classes.root}
+          className={classes.root + " search-bar"}
           onSubmit={handleSubmit}
         >
           <InputBase

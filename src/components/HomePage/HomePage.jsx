@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -19,7 +18,7 @@ function Alert(props) {
 }
 
 const HomePage = () => {
-  const { authAlert, authAlertDispatcher, isSignedIn } = useContext(
+  const { authAlert, authAlertDispatcher } = useContext(
     UserContext
   );
   const { posts } = useContext(PostContext);
@@ -34,7 +33,6 @@ const HomePage = () => {
     <div>
       <Navbar />
       <div className="home-page">
-        {!isSignedIn && <Redirect to="/signup" />}
         <Snackbar
           open={authAlert.isShowen}
           autoHideDuration={6000}

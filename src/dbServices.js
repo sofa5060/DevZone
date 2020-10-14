@@ -161,7 +161,7 @@ export const getUserData = async (uid) => {
 };
 
 export const followUser = (uid, id) => {
-  if (uid === id) {
+  if (uid === id || !uid) {
     return;
   }
   db.collection("users")
@@ -178,7 +178,7 @@ export const followUser = (uid, id) => {
 };
 
 export const unFollowUser = (uid, id) => {
-  if (uid === id) {
+  if (uid === id || !uid) {
     return;
   }
   db.collection("users")

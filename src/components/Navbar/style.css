@@ -2,6 +2,17 @@ nav {
   background: #fff;
 }
 
+nav .fake-space {
+  width: 90px;
+  display: none;
+}
+
+@media (max-width: 550px) {
+  nav .fake-space {
+    display: block;
+  }
+}
+
 nav .container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -17,10 +28,25 @@ nav .container {
           justify-content: space-between;
 }
 
+@media (max-width: 550px) {
+  nav .container {
+    padding: 10px 20px;
+  }
+}
+
 nav .container .logo {
   max-width: 167px;
-  max-height: 34px;
-  display: block;
+  margin: 0 10px;
+}
+
+nav .container .logo img {
+  width: 100%;
+}
+
+@media (max-width: 550px) {
+  nav .container .search-bar {
+    display: none !important;
+  }
 }
 
 nav .container .user-image {

@@ -1,3 +1,9 @@
+@mixin phone {
+  @media(max-width: 550px){
+    @content
+  }
+}
+
 nav {
   background: #fff;
 
@@ -9,10 +15,23 @@ nav {
     align-items: center;
     justify-content: space-between;
 
+    @include phone {
+      padding: 10px 20px;
+    }
+
     .logo {
       max-width: 167px;
-      max-height: 34px;
-      display: block;
+      margin: 0 10px;
+
+      img{
+        width: 100%;
+      }
+    }
+
+    .search-bar{
+      @include phone {
+        display: none !important;
+      }
     }
 
     .user-image {

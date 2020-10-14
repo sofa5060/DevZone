@@ -9,7 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import moment from "moment";
 
 const Comments = ({ postData, postID }) => {
-  const { user } = useContext(UserContext);
+  const { user, isSignedIn } = useContext(UserContext);
   const { comments } = postData;
   const reversedComments = [...comments].reverse();
   const [commentContent, updateComment] = useState("");
@@ -17,6 +17,9 @@ const Comments = ({ postData, postID }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isSignedIn) {
+      return;
+    }
     const comment = {
       content: commentContent,
       image: commentImage,

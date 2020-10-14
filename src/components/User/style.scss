@@ -1,3 +1,9 @@
+@mixin phone {
+  @media (max-width: 550px) {
+    @content;
+  }
+}
+
 .user-info {
   position: relative;
   width: 100%;
@@ -49,5 +55,11 @@
       color: #2fc2df;
       margin: 10px 0 0 0;
     }
+  }
+}
+
+.hide{
+  @include phone {
+    display: none;
   }
 }

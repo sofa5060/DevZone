@@ -58,4 +58,10 @@
   color: #2fc2df;
   margin: 10px 0 0 0;
 }
+
+@media (max-width: 550px) {
+  .hide {
+    display: none;
+  }
+}
 /*# sourceMappingURL=style.css.map */

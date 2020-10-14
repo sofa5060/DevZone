@@ -6,7 +6,6 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import Backdrop from "@material-ui/core/Backdrop";
 import "./PostModal.css";
 import { makeStyles } from "@material-ui/core/styles";
-import { PostContext } from "../../Contexts/PostContext";
 import { UserContext } from "../../Contexts/UserContext";
 import { createPost, uploadImage } from "../../dbServices";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -23,8 +22,7 @@ const AddPostModal = ({ setOpen }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [isSubmited, setSubmit] = useState(false);
-  const { postDispatcher } = useContext(PostContext);
-  const { user } = useContext(UserContext);
+  const { user, isSignedIn } = useContext(UserContext);
 
   const getFile = () => {
     document.getElementById("photoURL").click();
@@ -56,15 +54,18 @@ const AddPostModal = ({ setOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isSignedIn) {
+      return;
+    }
     setSubmit(true);
-    let imageURL;
+    let imageURL = "";
     if (image) {
       imageURL = await uploadImage(image);
     }
     createPost({
       title,
       details,
-      imageURL: imageURL || "",
+      imageURL: imageURL,
       authorID: user.uid,
       authorImageURL: user.imageURL,
       authorFullName: user.fullName,

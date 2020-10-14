@@ -26,7 +26,7 @@ export default function MenuListComposition() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-  const { user } = useContext(UserContext);
+  const { user, isSignedIn } = useContext(UserContext);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -60,70 +60,87 @@ export default function MenuListComposition() {
     prevOpen.current = open;
   }, [open]);
 
-  return (
-    <div className={classes.root}>
-      <div>
-        <Button
-          ref={anchorRef}
-          aria-controls={open ? "menu-list-grow" : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <div className="user-image">
-            {user.imageURL ? (
-              <img src={user.imageURL} alt="" />
-            ) : (
-              <AccountCircleIcon
+  if (isSignedIn) {
+    return (
+      <div className={classes.root}>
+        <div>
+          <Button
+            ref={anchorRef}
+            aria-controls={open ? "menu-list-grow" : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div className="user-image">
+              {user.imageURL ? (
+                <img src={user.imageURL} alt="" />
+              ) : (
+                <AccountCircleIcon
+                  style={{
+                    color: "#C2C2C2",
+                    fontSize: "50",
+                  }}
+                />
+              )}
+            </div>
+            <ArrowDropDownIcon style={{ color: "#999999" }} />
+          </Button>
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
                 style={{
-                  color: "#C2C2C2",
-                  fontSize: "50",
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
                 }}
-              />
-            )}
-          </div>
-          <ArrowDropDownIcon style={{ color: "#999999" }} />
-        </Button>
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom" ? "center top" : "center bottom",
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="menu-list-grow"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <Link
-                      to="/myprofile"
-                      style={{
-                        color: "rgba(0, 0, 0, 0.87)",
-                        textDecoration: "none",
-                      }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                      autoFocusItem={open}
+                      id="menu-list-grow"
+                      onKeyDown={handleListKeyDown}
                     >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    </Link>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose && logOut}>Logout</MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+                      <Link
+                        to="/myprofile"
+                        style={{
+                          color: "rgba(0, 0, 0, 0.87)",
+                          textDecoration: "none",
+                        }}
+                      >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      </Link>
+                      <MenuItem onClick={handleClose}>My account</MenuItem>
+                      <MenuItem onClick={handleClose && logOut}>
+                        Logout
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <Link
+        to="/signin"
+        style={{
+          color: "#2fc2df",
+          textDecoration: "none",
+          fontSize:"18px"
+        }}
+      >
+        Sign in
+      </Link>
+    );
+  }
 }
